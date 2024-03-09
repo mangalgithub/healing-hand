@@ -13,9 +13,9 @@ const generatetoken = (id) => {
 
 export const registerUser = asyncHandler(async (req, res, next) => {
   try {
-    const { name, email, password } = req.body;
-    console.log(name,email,password);
-    if (!name || !email || !password){
+    const { name, email, password ,role} = req.body;
+    console.log(name,email,password,role);
+    if (!name || !email || !password || !role){
       res.status(400);
       throw new Error("Not all info found");
     }
@@ -31,13 +31,14 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     const saltRounds = 10;
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedpassword = await bcrypt.hash(password, salt);
-    const user = await User.create({ name, email, password: hashedpassword });
+    const user = await User.create({ name, email, password: hashedpassword ,role});
 
     if (user) {
       res.status(200).json({
         _id: user._id,
         name: user.name,
         email: user.email,
+        role: user.role,
         pic: user.pic,
         token: generatetoken(user._id), // Generate and include token
         message: "User created"
