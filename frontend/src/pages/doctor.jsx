@@ -1,143 +1,19 @@
-// import React,{useEffect,useState} from 'react';
-// import './doctor.css';
-// function Doctor(){
-    
-//     useEffect(() => {
-//     const body = document.querySelector("body"),
-//        sidebar = document.querySelector(".sidebar"),
-//       toggle = document.querySelector(".toggle"),
-//       modeSwitch = document.querySelector(".toggle-switch"),
-//       modeText = document.querySelector(".mode-text"),
-//       searchBtn = document.querySelector(".search-bar");
-
-//     modeSwitch.addEventListener("click", () => {
-//       body.classList.toggle("dark");
-//       //   document.querySelector(".mode-text").innertext=""
-
-//       if (body.classList.contains("dark")) {
-//         modeText.innerText = " Light Mode ";
-//       } else modeText.innerText = " Dark Mode ";
-//     });
-
-//     toggle.addEventListener("click", () => {
-//       sidebar.classList.toggle("close");
-//     });
-
-//     searchBtn.addEventListener("click", () => {
-//       sidebar.classList.remove("close");
-//     });
-//     }, []);
-//     return (
-//       <>
-//         <link
-//           href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
-//           rel="stylesheet"
-//         />
-//         <nav className="sidebar">
-//           <header>
-//             <div className="image-text">
-//               <span className="image">
-//                 <img
-//                   src="https://t4.ftcdn.net/jpg/04/06/91/91/240_F_406919147_D3WsGjwXj1qmFNrei2ZFvBWwiueRcFmg.jpg"
-//                   alt="logo"
-//                 />
-//               </span>
-//               <div className="text header-text">
-//                 <span className="main">Sidebar</span>
-//                 <span className="sub">Component</span>
-//               </div>
-//             </div>
-//             <i className="bx bx-chevron-right toggle" />
-//           </header>
-//           <div className="menu-bar">
-//             <div className="menu">
-//               <ul className="menu-links">
-//                 <li className="search-bar">
-//                   <i className="bx bx-search icons" />
-//                   <input type="search" placeholder="Search..." />
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-home-alt icons" />
-//                     <span className="text nav-text">Dashboard</span>
-//                   </a>
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-bar-chart-alt-2 icons" />
-//                     <span className="text nav-text">Revenue</span>
-//                   </a>
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-bell icons" />
-//                     <span className="text nav-text">Notifications</span>
-//                   </a>
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-pie-chart-alt icons" />
-//                     <span className="text nav-text">Analytics</span>
-//                   </a>
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-heart icons" />
-//                     <span className="text nav-text">Likes</span>
-//                   </a>
-//                 </li>
-//                 <li className="nav-link">
-//                   <a href="#">
-//                     <i className="bx bx-wallet-alt icons" />
-//                     <span className="text nav-text">Wallets</span>
-//                   </a>
-//                 </li>
-//               </ul>
-//             </div>
-//             <div className="bottom-content">
-//               <li className="nav-link">
-//                 <a href="#">
-//                   <i className="bx bx-log-out icons" />
-//                   <span className="text nav-text">Log Out</span>
-//                 </a>
-//               </li>
-//               <li className="mode">
-//                 <div className="moon-sun">
-//                   <i className="bx bx-moon icons moon" />
-//                   <i className="bx bx-sun icons sun" />
-//                 </div>
-//                 <span className="mode-text text">Dark Mode</span>
-//                 <div className="toggle-switch">
-//                   <span className="switch" />
-//                 </div>
-//               </li>
-//             </div>
-//           </div>
-//         </nav>
-//       </>
-//     );
-// }
-// export default Doctor;
-
-
-
 import React, { useState,useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./doctor.css";
 import ProfilePage from "./profile";
 import Appointments from "./appointments";
 function Doctor() {
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-
+   const userName = "John Doe";
+   const userPhoto = "https://via.placeholder.com/40";
   
 
   const handleToggleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
-  const handleSearchClick = () => {
-    setSidebarOpen(false);
-  };
   const handleModeSwitch = () => {
     setDarkMode(!darkMode);
   };
@@ -154,6 +30,15 @@ function Doctor() {
  
   return (
     <>
+      <div className="bg-emerald-900 py-4">
+        <div className="container mx-auto flex items-center justify-between">
+          <Link to="/" className="text-white text-lg font-semibold"></Link>
+          <div className="flex items-center">
+            <img src={userPhoto} alt="User" className="w-8 h-8 rounded-full mr-2" />
+            <div className="text-white">{userName}</div>
+          </div>
+        </div>
+      </div>
       <link
         href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
         rel="stylesheet"
@@ -182,7 +67,7 @@ function Doctor() {
             <div className="menu-bar">
               <div className="menu">
                 <ul className="menu-links">
-                  <li className="search-bar" onClick={handleSearchClick}>
+                  <li className="search-bar" >
                     <i className="bx bx-search icons" />
                     <input type="search" placeholder="Search..." />
                   </li>
