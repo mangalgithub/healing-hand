@@ -28,6 +28,9 @@ function Appointments() {
                   <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                     Contact Number
                   </th>
+                  <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                    Email
+                  </th>
                 </tr>
               </thead>
               <tbody>
@@ -35,6 +38,7 @@ function Appointments() {
                   <td className="px-4 py-3">Patient1</td>
                   <td className="px-4 py-3">2:00pm</td>
                   <td className="px-4 py-3">1234490</td>
+                  <td className="px-4 py-3">mnlajf</td>
                 </tr>
                 <tr>
                   <td className="border-t-2 border-gray-200 px-4 py-3">
@@ -45,6 +49,9 @@ function Appointments() {
                   </td>
                   <td className="border-t-2 border-gray-200 px-4 py-3">
                     1234490
+                  </td>
+                  <td className="border-t-2 border-gray-200 px-4 py-3">
+                    magjal
                   </td>
                 </tr>
                 <tr>
@@ -57,6 +64,9 @@ function Appointments() {
                   <td className="border-t-2 border-gray-200 px-4 py-3">
                     1234490
                   </td>
+                  <td className="border-t-2 border-gray-200 px-4 py-3">
+                    magjal
+                  </td>
                 </tr>
                 <tr>
                   <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">
@@ -68,11 +78,13 @@ function Appointments() {
                   <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">
                     1234490
                   </td>
+                  <td className="border-t-2 border-gray-200 px-4 py-3">
+                    magjal
+                  </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div className="flex pl-4 mt-4 lg:w-2/3 w-full mx-auto"></div>
         </div>
       </section>
     </>

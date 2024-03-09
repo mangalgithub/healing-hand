@@ -187,19 +187,19 @@ function Doctor() {
                     <input type="search" placeholder="Search..." />
                   </li>
                   <li className="nav-link">
-                    <a href="#">
+                    <a href="/doctor">
                       <i className="bx bx-home-alt icons" />
                       <span className="text nav-text">Dashboard</span>
                     </a>
                   </li>
                   <li className="nav-link">
-                    <a href="#">
+                    <a href="/notification">
                       <i className="bx bx-bell icons" />
                       <span className="text nav-text">Notifications</span>
                     </a>
                   </li>
                   <li className="nav-link">
-                    <a href="#">
+                    <a href="/review">
                       <i className="bx bx-heart icons" />
                       <span className="text nav-text">Reviews</span>
                     </a>
@@ -234,7 +234,6 @@ function Doctor() {
           </nav>
         </div>
         <div>
-          {/* <ProfilePage></ProfilePage> */}
           <Appointments></Appointments>
         </div>
       </div>

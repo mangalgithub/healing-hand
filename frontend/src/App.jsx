@@ -7,6 +7,8 @@ import Signup from "./pages/signup";
 import Home from "./pages/home";
 import Doctor from "./pages/doctor";
 import ProfilePage from "./pages/profile";
+import PatientData from "./pages/doctorNotification";
+import Review from "./pages/doctorReview";
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,6 +30,14 @@ function App() {
     {
       path:"/profile",
       element:<ProfilePage></ProfilePage>
+    },
+    {
+      path:"/notification",
+      element:<PatientData></PatientData>
+    },
+    {
+      path:"/review",
+      element:<Review></Review>
     }
   ]);
   return (
