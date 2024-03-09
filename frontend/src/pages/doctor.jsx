@@ -18,6 +18,7 @@ function Doctor() {
     setDarkMode(!darkMode);
   };
  useEffect(() => {
+  console.log("Doctor page loaded");
    const body = document.querySelector("body");
 
    if (darkMode) {
