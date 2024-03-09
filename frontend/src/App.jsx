@@ -6,6 +6,7 @@ import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Home from "./pages/home";
 import Doctor from "./pages/doctor";
+import ProfilePage from "./pages/profile";
 function App() {
   const router = createBrowserRouter([
     {
@@ -23,6 +24,10 @@ function App() {
     {
       path:"/doctor",
       element:<Doctor></Doctor>
+    },
+    {
+      path:"/profile",
+      element:<ProfilePage></ProfilePage>
     }
   ]);
   return (
