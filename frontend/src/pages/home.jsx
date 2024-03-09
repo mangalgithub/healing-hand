@@ -1,11 +1,11 @@
 import React from 'react'
 
-function home() {
+function Home() {
   return (
     <div>
-      home
+      <h1 className='bg-blue-500 text-red-500'>home</h1>
     </div>
   )
 }
 
-export default home
+export default Home;
