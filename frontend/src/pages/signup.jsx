@@ -5,6 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Signup() {
   const [name, setName] = useState("");
+  const [role, setRole] = useState(""); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -62,6 +63,7 @@ export default function Signup() {
                   />
                 </div>
               </div>
+              
               <div>
                 <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                   Email address
@@ -120,6 +122,28 @@ export default function Signup() {
                     className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                     placeholder="Enter confirm password"
                   />
+                </div>
+              </div>
+              <div>
+                <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+                  Role
+                </label>
+                <div className="mt-1">
+                  <select
+                    id="role"
+                    name="role"
+                    type="text"
+                    autoComplete="role"
+                    required
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Enter your role"
+                    
+                  >
+                    <option value="patient">Patient</option>
+                    <option value="doctor">Doctor</option>
+                    </select>
                 </div>
               </div>
 
