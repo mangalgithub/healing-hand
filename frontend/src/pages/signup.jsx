@@ -40,13 +40,18 @@ export default function Signup() {
       <div className="flex h-screen bg-gradient-to-b from-indigo-800 to-indigo-600">
         <div className="m-auto w-full max-w-md">
           <div className="text-center">
-            <h2 className="mt-6 text-3xl font-extrabold text-white">Sign up for an account</h2>
+            <h2 className="mt-6 text-3xl font-extrabold text-white">
+              Sign up for an account
+            </h2>
           </div>
 
           <div className="mt-8 bg-white shadow-md rounded-md p-8">
             <form className="space-y-6" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Name
                 </label>
                 <div className="mt-1">
@@ -65,7 +70,10 @@ export default function Signup() {
               </div>
               
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
                   Email address
                 </label>
                 <div className="mt-1">
@@ -85,7 +93,10 @@ export default function Signup() {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="password" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Password
                   </label>
                 </div>
@@ -106,7 +117,10 @@ export default function Signup() {
 
               <div>
                 <div className="flex items-center justify-between">
-                  <label htmlFor="confirm-password" className="block text-sm font-medium text-gray-700">
+                  <label
+                    htmlFor="confirm-password"
+                    className="block text-sm font-medium text-gray-700"
+                  >
                     Confirm Password
                   </label>
                 </div>
@@ -126,7 +140,7 @@ export default function Signup() {
               </div>
               <div>
                 <label htmlFor="role" className="block text-sm font-medium text-gray-700">
-                  Role
+                 Select Role
                 </label>
                 <div className="mt-1">
                   <select
@@ -160,7 +174,10 @@ export default function Signup() {
             <div className="mt-4 text-center">
               <p className="text-sm text-gray-600">
                 Already have an account?{" "}
-                <Link to="/" className="font-medium text-indigo-600 hover:text-indigo-500">
+                <Link
+                  to="/"
+                  className="font-medium text-indigo-600 hover:text-indigo-500"
+                >
                   Log in
                 </Link>
               </p>

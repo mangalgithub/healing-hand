@@ -5,6 +5,7 @@ import {
 import Login from "./pages/login";
 import Signup from "./pages/signup";
 import Home from "./pages/home";
+import Doctor from "./pages/doctor";
 function App() {
   const router = createBrowserRouter([
     {
@@ -18,6 +19,10 @@ function App() {
     {
       path:"/home",
       element:<Home></Home>
+    },
+    {
+      path:"/doctor",
+      element:<Doctor></Doctor>
     }
   ]);
   return (
