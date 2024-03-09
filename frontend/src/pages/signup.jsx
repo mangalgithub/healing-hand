@@ -22,6 +22,7 @@ export default function Signup() {
         name,
         email,
         password,
+        role,
       }, {
         headers: {
           "Content-Type": "application/json",

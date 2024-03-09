@@ -61,7 +61,9 @@ export const loginUser = asyncHandler(async (req, res, next) => {
         _id: user._id,
         name: user.name,
         email: user.email,
-        token: generatetoken(user._id), // Generate and include token
+        token: generatetoken(user._id),
+        role: user.role,
+        // Generate and include token
       });
     } else {
       res.status(400);

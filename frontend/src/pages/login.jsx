@@ -7,7 +7,11 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+  const [role, setRole] = useState("");
+  const handleRole = async (role) => {  
+    console.log(role);
+    await setRole(role);
+  }
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -23,10 +27,20 @@ export default function Login() {
           },
         }
       );
-      console.log(response.data); // Handle the response as needed
+      // console.log(response.data.role); // Handle the response as needed
+      setRole(response.data.role);
+      await handleRole(response.data.role);
       toast.success("Login successful"); // Show success toast
       // Redirect to the home page after successful login
-      navigate("/home");
+      console.log(role);
+      if(role==="doctor"){  
+        // console.log("doctor");
+        navigate("/doctor");
+      }
+      else if(role==="patient"){
+      navigate("/patient");
+      }
+      
     } catch (error) {
       setError("Invalid credentials. Please try again.");
       toast.error("Invalid credentials. Please try again."); // Show error toast
