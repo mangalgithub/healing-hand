@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom";
 
-
-
 export default function PatientHomePage() {
+  // Dummy data for the user's name and photo
+  const userName = "John Doe";
+  const userPhoto = "https://via.placeholder.com/40";
+
   return (
     <div>
       <div className="bg-emerald-900 py-4">
         <div className="container mx-auto flex items-center justify-between">
           <Link to="/" className="text-white text-lg font-semibold">Doctor App</Link>
-          <div className="text-white">Navbar Content</div>
+          <div className="flex items-center">
+            <img src={userPhoto} alt="User" className="w-8 h-8 rounded-full mr-2" />
+            <div className="text-white">{userName}</div>
+          </div>
         </div>
       </div>
       <div className="container mx-auto px-4 py-8">
