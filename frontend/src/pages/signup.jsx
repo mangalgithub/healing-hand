@@ -5,7 +5,7 @@ import toast, { Toaster } from "react-hot-toast";
 
 export default function Signup() {
   const [name, setName] = useState("");
-  const [role, setRole] = useState(""); 
+  const [role, setRole] = useState("patient"); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
