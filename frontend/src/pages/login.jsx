@@ -2,16 +2,25 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
-  const [role, setRole] = useState("");
-  
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      const token = localStorage.getItem("token");
+      
+      // if (!token) {
+      //   // Handle case where token does not exist in localStorage
+      //   setError("Token not found. Please log in again.");
+      //   toast.error("Token not found. Please log in again.");
+      //   return;
+      // }
+
       const response = await axios.post(
         "http://localhost:5000/api/login",
         {
@@ -21,25 +30,24 @@ export default function Login() {
         {
           headers: {
             "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`, // Include token in Authorization header
           },
         }
       );
-     
-       // Show success toast
-      // Redirect to the home page after successful login
-      
-      if(response.data.role==="doctor"){  
-        // console.log("doctor");
+
+      if (response.data.role === "doctor") {
+        localStorage.setItem("token", response.data.token);
         navigate("/doctor");
+      } else if (response.data.role === "patient") {
+        localStorage.setItem("token", response.data.token);
+        navigate("/patient");
       }
-      else if(response.data.role==="patient"){
-      navigate("/patient");
-      }
-      toast.success("Login successful");
-      
+
+      toast.success(response.data.message);
     } catch (error) {
+      console.log(error);
       setError("Invalid credentials. Please try again.");
-      toast.error("Invalid credentials. Please try again."); // Show error toast
+      toast.error("Invalid credentials. Please try again.");
     }
   };
 
@@ -109,7 +117,6 @@ export default function Login() {
                 >
                   Log in
                 </button>
-                
               </div>
             </form>
 
@@ -126,7 +133,7 @@ export default function Login() {
                   to="/signup"
                   className="font-medium text-indigo-600 hover:text-indigo-500"
                 >
-                  Not a member
+                  Sign up
                 </Link>
               </p>
             </div>

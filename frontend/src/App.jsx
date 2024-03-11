@@ -9,13 +9,14 @@ import Doctor from "./pages/doctor";
 import ProfilePage from "./pages/profile";
 import PatientData from "./pages/doctorNotification";
 import Review from "./pages/doctorReview";
+import Popup from './pages/popup';
 import {  CardiologistPage } from "../DoctorsPage/CardiologistPage";
 import PatientHomePage from "./pages/PatientHomePage";
 import {  PhysicianPage } from "../DoctorsPage/PhysicianPage";
 import { DentistPage } from "../DoctorsPage/DentistPage";
 import { NeurologistPage } from "../DoctorsPage/NeurologistPage";
 import { PediatricianPage } from "../DoctorsPage/PediatricianPage";
-import Popup from "./pages/popup";
+import UserProfile from "./pages/Protectedroute";
 import DoctorForm from "./pages/doctorForm";
 function App() {
   const router = createBrowserRouter([
@@ -80,11 +81,12 @@ function App() {
       path:"/pediatrician",
       element:<PediatricianPage></PediatricianPage>
 
-    },
-    {
+    },{
+      path:"/profil",
+      element:<UserProfile></UserProfile>
+    },{
       path:"/doctorform",
       element:<DoctorForm></DoctorForm>
-
     }
   ]);
   return (
