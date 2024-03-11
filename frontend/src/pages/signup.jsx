@@ -2,14 +2,20 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import toast, { Toaster } from "react-hot-toast";
-
+import { storage } from "../../firebase/firebase";
+import { v4 as uuidv4 } from "uuid";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 export default function Signup() {
   const [name, setName] = useState("");
   const [role, setRole] = useState("patient"); 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-
+  const [pic,setPic]=useState(null)
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    setPic(file);
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -18,11 +24,16 @@ export default function Signup() {
     }
 
     try {
+      const imageRef = ref(storage, `images/${uuidv4()}`);
+            await uploadBytes(imageRef, pic);
+            const downloadURL = await getDownloadURL(imageRef);
+      console.log(downloadURL);
       const response = await axios.post("http://localhost:5000/api/register", {
-        name,
-        email,
-        password,
-        role,
+        name:name,
+        email:email,
+        password:password,
+       role:role,
+        pic:downloadURL
       }, {
         headers: {
           "Content-Type": "application/json",
@@ -138,6 +149,30 @@ export default function Signup() {
                     placeholder="Enter confirm password"
                   />
                 </div>
+                <div>
+                <div className="flex items-center justify-between">
+                  <label
+                    htmlFor="pic"
+                    className="block text-sm font-medium text-gray-700"
+                  >
+                    Choose pic
+                  </label>
+                </div>
+                <div className="mt-1">
+                  <input
+                    id="pic"
+                    name="pic"
+                    type="file"
+                    autoComplete="pic"
+                    required
+                    // value={pic}
+                    onChange ={handleFileChange}
+                    accept="image/*"
+                    className="block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                    placeholder="Enter confirm password"
+                  />
+                </div>
+              </div>
               </div>
               <div>
                 <label htmlFor="role" className="block text-sm font-medium text-gray-700">
