@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate} from "react-router-dom";
 import "./doctor.css";
 import ProfilePage from "./profile";
 import Appointments from "./appointments";
@@ -8,7 +8,7 @@ function Doctor() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
    const userName = "John Doe";
    const userPhoto = "https://via.placeholder.com/40";
-  
+  const navigate=useNavigate();
 
   const handleToggleClick = () => {
     setSidebarOpen(!sidebarOpen);
@@ -96,7 +96,9 @@ function Doctor() {
                 <li className="nav-link">
                   <a href="#">
                     <i className="bx bx-log-out icons" />
-                    <span className="text nav-text">Log Out</span>
+                    <span className="text nav-text"
+                      onClick={() => {navigate("/");localStorage.clear();}}
+                    >Log Out</span>
                   </a>
                 </li>
 

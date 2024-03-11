@@ -15,6 +15,7 @@ import {  PhysicianPage } from "../DoctorsPage/PhysicianPage";
 import { DentistPage } from "../DoctorsPage/DentistPage";
 import { NeurologistPage } from "../DoctorsPage/NeurologistPage";
 import { PediatricianPage } from "../DoctorsPage/PediatricianPage";
+import Popup from "./pages/popup";
 function App() {
   const router = createBrowserRouter([
     {
@@ -28,6 +29,10 @@ function App() {
     {
       path:"/home",
       element:<Home></Home>
+    },
+    {
+      path:"/appointment",
+      element:<Popup></Popup>
     },
     {
 
