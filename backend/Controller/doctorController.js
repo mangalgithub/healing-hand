@@ -30,7 +30,7 @@ const savePatientRequest = async (req, res) => {
     // const { doctorId, patientDetails } = req.body;
        const {name,email,mobileNo,time,doctorId}=req.body;
     // Find the doctor by ID
-   
+   console.log(doctorId);
     const doctor = await Doctor.findById(doctorId);
 
     if (!doctor) {
@@ -39,10 +39,10 @@ const savePatientRequest = async (req, res) => {
 
     // Push the patient details to the acceptedPatients array
     doctor.acceptedPatients.push({
-      name: patientDetails.name,
-      email: patientDetails.email,
-      mobileNo: patientDetails.mobileNo,
-      scheduledTime: patientDetails.scheduledTime,
+      name: name,
+      email: email,
+      mobileNo: mobileNo,
+      scheduledTime: time,
     });
 
     // Save the doctor with the updated patient details
