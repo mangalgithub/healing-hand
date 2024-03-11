@@ -16,6 +16,7 @@ import { DentistPage } from "../DoctorsPage/DentistPage";
 import { NeurologistPage } from "../DoctorsPage/NeurologistPage";
 import { PediatricianPage } from "../DoctorsPage/PediatricianPage";
 import Popup from "./pages/popup";
+import DoctorForm from "./pages/doctorForm";
 function App() {
   const router = createBrowserRouter([
     {
@@ -78,6 +79,11 @@ function App() {
     {
       path:"/pediatrician",
       element:<PediatricianPage></PediatricianPage>
+
+    },
+    {
+      path:"/doctorform",
+      element:<DoctorForm></DoctorForm>
 
     }
   ]);
