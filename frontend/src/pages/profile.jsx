@@ -34,8 +34,20 @@
 // export default ProfilePage;
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 
 function ProfilePage() {
+  const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   const [name, setName] = useState("John Doe");
   const [email, setEmail] = useState("test@gmail.com");
   const [phone, setPhone] = useState("123-456-7890");

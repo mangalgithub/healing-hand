@@ -3,12 +3,23 @@ import { Link ,useNavigate} from "react-router-dom";
 import "./doctor.css";
 import ProfilePage from "./profile";
 import Appointments from "./appointments";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 function Doctor() {
+  const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
    const userName = "John Doe";
    const userPhoto = "https://via.placeholder.com/40";
-  const navigate=useNavigate();
+ 
 
   const handleToggleClick = () => {
     setSidebarOpen(!sidebarOpen);

@@ -1,6 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const PatientData = () => {
+  const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   const patients = [
     {
       name: "John Doe",

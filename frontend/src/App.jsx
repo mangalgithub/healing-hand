@@ -4,7 +4,6 @@ import {
 } from "react-router-dom";
 import Login from "./pages/login";
 import Signup from "./pages/signup";
-import Home from "./pages/home";
 import Doctor from "./pages/doctor";
 import ProfilePage from "./pages/profile";
 import PatientData from "./pages/doctorNotification";
@@ -28,10 +27,7 @@ function App() {
       path:"/signup",
       element:<Signup></Signup>
     },
-    {
-      path:"/home",
-      element:<Home></Home>
-    },
+    
     {
       path:"/appointment",
       element:<Popup></Popup>
@@ -84,7 +80,8 @@ function App() {
     },{
       path:"/profil",
       element:<UserProfile></UserProfile>
-    },{
+    },
+    {
       path:"/doctorform",
       element:<DoctorForm></DoctorForm>
     }
