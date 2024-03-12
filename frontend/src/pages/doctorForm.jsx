@@ -1,8 +1,20 @@
 // src/DoctorForm.js
 
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const DoctorForm = () => {
+  const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",

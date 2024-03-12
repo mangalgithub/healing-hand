@@ -1,4 +1,5 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useUserProfile from "./Initialpage";
 const PediatricianDoctors = [
     {
       name: "Dr. Oliver Wilson",
@@ -63,6 +64,16 @@ const PediatricianDoctors = [
   };
   
   export const PediatricianPage = () => {
+    const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
     return (
       <div className="container mx-auto px-4">
         <h2 className="text-2xl font-semibold mb-4">Pediatrician Doctors</h2>

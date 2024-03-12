@@ -1,4 +1,13 @@
 import { Link } from "react-router-dom";
+import useUserProfile from "./Initialpage";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+   
+   
+    
+
 const DentistDoctors = [
     {
       name: "Dr. Samantha Johnson",
@@ -39,7 +48,9 @@ const DentistDoctors = [
 
 
   const DoctorCard = ({ doctor }) => {
+    
     return (
+      
       <div className="bg-white shadow-lg rounded-lg p-4">
         <img src={doctor.photo} alt={doctor.name} className="w-full h-40 object-cover rounded-md mb-4" />
         <h3 className="text-xl font-semibold mb-2">{doctor.name}</h3>
@@ -63,8 +74,20 @@ const DentistDoctors = [
   };
   
   export const DentistPage = () => {
+    const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
     return (
+      
       <div className="container mx-auto px-4">
+        
         <h2 className="text-2xl font-semibold mb-4">Physician Doctors</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {DentistDoctors.map((doctor, index) => (

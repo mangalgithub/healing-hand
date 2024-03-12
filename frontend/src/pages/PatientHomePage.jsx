@@ -1,36 +1,52 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function PatientHomePage() {
-  // Dummy data for the user's name and photo
-  const [pic,setPic]=useState("")
-  const [name,setName]=useState("")
+  const [pic, setPic] = useState("");
+  const [name, setName] = useState("");
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserProfile = async () => {
       try {
-        const token=localStorage.getItem('token');
-        const userData = await axios.get("http://localhost:5000/api/getprofile",{
-          headers:{
+        const token = localStorage.getItem('token');
+        const userData = await axios.get("http://localhost:5000/api/getprofile", {
+          headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
           }
-
         });
-        console.log(userData.data);
+
+        setUser(userData.data);
         setPic(userData.data.pic);
-        setName(userData.data.name)
-        // console.log(user)
+        setName(userData.data.name);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching user profile:', error.message);
-      } finally {
         setLoading(false);
       }
     };
 
-     getUserProfile();
+    getUserProfile();
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/");
+  };
+
+  if (!user) {
+    return <div>User not found</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <div className="bg-emerald-900 py-4">
@@ -39,6 +55,12 @@ export default function PatientHomePage() {
           <div className="flex items-center">
             <img src={pic} alt="User" className="w-8 h-8 rounded-full mr-2" />
             <div className="text-white">{name}</div>
+            <button
+              onClick={handleLogout}
+              className="ml-4 p-2 rounded bg-red-500 text-white"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>

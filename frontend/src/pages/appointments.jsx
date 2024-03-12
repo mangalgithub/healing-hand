@@ -1,6 +1,18 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 
 function Appointments() {
+  const navigate=useNavigate();
+    const { user, loading } = useUserProfile();
+
+  if (!user) {
+    return navigate("/")
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <>
       <section className="text-gray-600 body-font">

@@ -109,9 +109,9 @@ export const getUser=(req,res,next)=>{
  
   const authHeader = req.headers["authorization"];
   
-  console.log(authHeader);
+
   const token = authHeader && authHeader.split(' ')[1];
-  console.log(token);
+  
   if (!token) {
     return res.sendStatus(401); // Unauthorized
   }
@@ -134,7 +134,7 @@ export const getUser=(req,res,next)=>{
 
       // Attach the user object to the request for further use
       req.user = user;
-      console.log(req.user)
+      console.log(user)
       res.json({
         id:req.user.id,
         name:req.user.name,
@@ -148,6 +148,5 @@ export const getUser=(req,res,next)=>{
       return res.sendStatus(500); // Internal Server Error
     }
   });
- // if(!req.user) return res.sendStatus(401)
  
 }
