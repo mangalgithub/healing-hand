@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import useUserProfile from "./Initialpage";
-
 const CardiologistDoctors = [
   {
     name: "Dr. John Smith",

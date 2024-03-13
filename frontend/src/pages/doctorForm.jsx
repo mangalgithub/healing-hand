@@ -1,5 +1,3 @@
-// src/DoctorForm.js
-
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useUserProfile from "../../DoctorsPage/Initialpage";
@@ -18,7 +16,7 @@ const DoctorForm = () => {
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",
-    specialization: "",
+    specialization: "", // Changed to empty string initially
     experience: "",
     description: "",
   });
@@ -74,15 +72,20 @@ const DoctorForm = () => {
           <label htmlFor="specialization" className="block mb-1">
             Specialization
           </label>
-          <input
-            type="text"
+          <select
             id="specialization"
             name="specialization"
             value={doctorDetails.specialization}
             onChange={handleChange}
             className="w-full border rounded px-3 py-2"
             required
-          />
+          >
+            <option value="Physician">Physician</option>
+            <option value="Cardiologist">Cardiologist</option>
+            <option value="Dentist">Dentist</option>
+            <option value="Neurologist">Neurologist</option>
+            <option value="Pediatrician">Pediatrician</option>
+          </select>
         </div>
         <div>
           <label htmlFor="experience" className="block mb-1">

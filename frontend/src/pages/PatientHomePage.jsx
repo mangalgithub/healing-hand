@@ -39,13 +39,15 @@ export default function PatientHomePage() {
     navigate("/");
   };
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  
   if (!user) {
     return <div>User not found</div>;
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  
 
   return (
     <div>
@@ -67,7 +69,7 @@ export default function PatientHomePage() {
       <div className="container mx-auto px-4 py-8">
         <h1 className="text-3xl font-semibold mb-8">Specializations</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-          <Link to="/profil" className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center transition duration-300 hover:bg-gray-100">
+          <Link to="/cardiologist" className="bg-white shadow-lg rounded-lg p-4 flex flex-col items-center justify-center transition duration-300 hover:bg-gray-100">
             <img src="https://media.istockphoto.com/id/874103026/photo/heart-stethoscope.jpg?s=612x612&w=0&k=20&c=tjQ8Y2R-x4LToTYHbGBUZ41AlZQLbHO2ixqXQOzwrUw=" alt="Cardiologist" className="w-full h-32 object-cover rounded-md mb-4" />
             <h3 className="text-xl font-semibold">Cardiologist</h3>
           </Link>

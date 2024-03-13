@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from 'cors';
 import userRoute from "./Route/userRoute.js"
 import doctorRoute from "./Route/doctorRoute.js";
+import appointmentRoute from "./Route/appointmentRoute.js";
 import  connectdb  from './Database/db.js';
 const PORT=5000;
 dotenv.config();
@@ -13,6 +14,7 @@ connectdb();
 app.use(cors());
 app.use("/api",userRoute);
 app.use("/api",doctorRoute);
+app.use("/api",appointmentRoute);
 app.get('/',(req,res)=>{
     res.send('Hello World');
 });

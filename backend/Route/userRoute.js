@@ -1,8 +1,10 @@
 import express from 'express';
-import { loginUser, registerUser, verifyToken, getUser } from '../Controller/userController.js';
+import { loginUser, registerUser, verifyToken, getUser,getPreviousAppointments,upcomingAppointment } from '../Controller/userController.js';
 const router=express.Router();
 router.post("/register",registerUser);
 router.post("/login",loginUser)
 router.get("/check",verifyToken);
 router.get("/getprofile",getUser);
+router.post("/previous-appointments",getPreviousAppointments);
+router.post("/upcoming-appointments",upcomingAppointment);
 export default router;

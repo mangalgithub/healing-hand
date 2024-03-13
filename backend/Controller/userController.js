@@ -2,7 +2,8 @@ import asyncHandler from "express-async-handler";
 import User from "../models/userModels.js";
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-
+import Patient from "../models/patientModels.js";
+import Appointment from "../models/appointmentModels.js";
 const generatetoken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
     expiresIn: "30d"
@@ -150,3 +151,92 @@ export const getUser=(req,res,next)=>{
   });
  
 }
+
+export const getPreviousAppointments=asyncHandler(async(req,res)=>{
+    try {
+      const googleId = req.body.googleId;
+      const appointments = await Appointment.find({ patientId: googleId });
+
+      // Get current dateTime
+      const date = new Date();
+      let currDateTime = date.getFullYear().toString();
+      const month = date.getMonth() + 1;
+      const day = date.getDate();
+      const hour = date.getHours();
+      const minutes = date.getMinutes();
+      const seconds = date.getSeconds();
+
+      currDateTime +=
+        month < 10 ? "-0" + month.toString() : "-" + month.toString();
+      currDateTime += day < 10 ? "-0" + day.toString() : "-" + day.toString();
+      currDateTime +=
+        hour < 10 ? "T0" + hour.toString() : "T" + hour.toString();
+      currDateTime +=
+        minutes < 10 ? ":0" + minutes.toString() : ":" + minutes.toString();
+      currDateTime +=
+        seconds < 10 ? ":0" + seconds.toString() : ":" + seconds.toString();
+
+      const filteredAppointments = appointments.filter((appointment) => {
+        return (
+          Date.parse(currDateTime) >=
+          Date.parse(appointment.date + "T" + appointment.slotTime)
+        );
+      });
+
+      const sortedAppointments = filteredAppointments.sort((a, b) => {
+        return (
+          Date.parse(b.date + "T" + b.slotTime) -
+          Date.parse(a.date + "T" + a.slotTime)
+        );
+      });
+
+      res.status(200).json(sortedAppointments);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json(err);
+    }
+});
+
+export const upcomingAppointment=asyncHandler(async(req,res)=>{
+   try {
+     const googleId = req.body.googleId;
+     const appointments = await Appointment.find({ patientId: googleId });
+
+     // Get current dateTime
+     const date = new Date();
+     let currDateTime = date.getFullYear().toString();
+     const month = date.getMonth() + 1;
+     const day = date.getDate();
+     const hour = date.getHours();
+     const minutes = date.getMinutes();
+     const seconds = date.getSeconds();
+
+     currDateTime +=
+       month < 10 ? "-0" + month.toString() : "-" + month.toString();
+     currDateTime += day < 10 ? "-0" + day.toString() : "-" + day.toString();
+     currDateTime += hour < 10 ? "T0" + hour.toString() : "T" + hour.toString();
+     currDateTime +=
+       minutes < 10 ? ":0" + minutes.toString() : ":" + minutes.toString();
+     currDateTime +=
+       seconds < 10 ? ":0" + seconds.toString() : ":" + seconds.toString();
+
+     const filteredAppointments = appointments.filter((appointment) => {
+       return (
+         Date.parse(currDateTime) <=
+         Date.parse(appointment.date + "T" + appointment.slotTime)
+       );
+     });
+
+     const sortedAppointments = filteredAppointments.sort((a, b) => {
+       return (
+         Date.parse(a.date + "T" + a.slotTime) -
+         Date.parse(b.date + "T" + b.slotTime)
+       );
+     });
+
+     res.status(200).json(sortedAppointments);
+   } catch (err) {
+     console.log(err);
+     res.status(400).json(err);
+   }
+});
