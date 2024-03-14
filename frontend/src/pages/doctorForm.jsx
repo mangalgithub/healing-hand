@@ -1,22 +1,23 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"
 import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const DoctorForm = () => {
   const navigate=useNavigate();
-    const { user, loading } = useUserProfile();
+  //   const { user, loading } = useUserProfile();
 
   if (!user) {
     return navigate("/")
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",
-    specialization: "", // Changed to empty string initially
+    specialization: "Physician", // Changed to empty string initially
     experience: "",
     description: "",
   });
@@ -28,11 +29,31 @@ const DoctorForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(doctorDetails);
-    // You can submit the form data to your backend here
-  };
+    const {name,email,specialization,experience,description}=doctorDetails;
+    console.log(name);
+    console.log(email)
+    console.log(experience)
+    console.log(description)
+    console.log(specialization)
+    try{
+      const response=await axios.post("http://localhost:5000/api/add",{
+      name:name,
+      email:email,
+      specialization:specialization,
+      experience:experience,
+      description:description
+    })
+      console.log(response.data);
+    }
+    
+  catch(err){
+    console.log(err);
+  }
+
+}
 
   return (
     <div className="max-w-md mx-auto py-8">
@@ -117,6 +138,7 @@ const DoctorForm = () => {
         <button
           type="submit"
           className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"
+          onClick={handleSubmit}
         >
           Submit
         </button>

@@ -6,15 +6,15 @@ import Appointments from "./appointments";
 import useUserProfile from "../../DoctorsPage/Initialpage";
 function Doctor() {
   const navigate=useNavigate();
-    const { user, loading } = useUserProfile();
+    // const { user, loading } = useUserProfile();
 
-  if (!user) {
-    return navigate("/")
-  }
+  // if (!user) {
+  //   return navigate("/")
+  // }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // if (loading) {
+  //   return <div>Loading...</div>;
+  // }
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
    const userName = "John Doe";

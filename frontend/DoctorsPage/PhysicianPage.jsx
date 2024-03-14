@@ -1,44 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useUserProfile from "./Initialpage";
-const PhysicianDoctors = [
-    {
-      name: "Dr. James Miller",
-      rating: 4.4,
-      experience: "9 years",
-      phoneNumber: "+1122334455",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Olivia Brown",
-      rating: 4.3,
-      experience: "11 years",
-      phoneNumber: "+1654327890",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Sophia Wilson",
-      rating: 4.6,
-      experience: "13 years",
-      phoneNumber: "+1987654321",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Daniel Clark",
-      rating: 4.2,
-      experience: "8 years",
-      phoneNumber: "+1456789234",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Emma White",
-      rating: 4.9,
-      experience: "16 years",
-      phoneNumber: "+1567890123",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-  ];
-
-
+import axios from "axios";
+import { useState ,useEffect} from "react";
   const DoctorCard = ({ doctor }) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-4">
@@ -67,13 +30,30 @@ const PhysicianDoctors = [
     const navigate=useNavigate();
     const { user, loading } = useUserProfile();
 
-  if (!user) {
-    return navigate("/")
-  }
+  // if (!user) {
+  //   return navigate("/")
+  // }
 
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const doctorData = await axios.get("http://localhost:5000/api/");
+        console.log(doctorData.data);
+        setDoctors(doctorData.data);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+    getDoctors();
+  }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
+  if (!user) {
+    return navigate("/")
+  }
+  const PhysicianDoctors = doctors.filter(doctor => doctor.specialization === 'Physician');
     return (
       <div className="container mx-auto px-4">
         <h2 className="text-2xl font-semibold mb-4">Physician Doctors</h2>

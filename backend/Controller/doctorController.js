@@ -38,20 +38,20 @@ const controllers = {
   },
 
   addDoctor: (req, res) => {
-    const username = req.body.username; // Required.. can't be undefined
-    const password = req.body.password;
-    const name = req.body.name;
-    const phoneNumber = req.body.phoneNumber;
+    const name = req.body.name; // Required.. can't be undefined
+    const email = req.body.email;
+    // const name = req.body.name;
+    const experience = req.body.experience;
     const specialization = req.body.specialization;
-    const feesPerSession = req.body.feesPerSession;
+    const description=req.body.description;
+    // const feesPerSession = req.body.feesPerSession;
 
     const newDoctor = new Doctor({
-      username,
-      password,
       name,
-      phoneNumber,
+      email,
+      experience,
       specialization,
-      feesPerSession,
+      description
     });
 
     newDoctor
@@ -69,14 +69,14 @@ const controllers = {
 
   updateDoctor: (req, res) => {
     // Implementation for updating a doctor
-    const username = req.body.username; // Required.. can't be undefined
+    const username = req.body.name; // Required.. can't be undefined
 
-    Doctor.findOne({ username: username }).then((doctor) => {
+    Doctor.findOne({ name: name }).then((doctor) => {
       if (doctor) {
-        doctor.name = req.body.name;
+        // doctor.username = req.body.username;
         doctor.phoneNumber = req.body.phoneNumber;
         doctor.specialization = req.body.specialization;
-        doctor.feesPerSession = req.body.feesPerSession;
+        // doctor.feesPerSession = req.body.feesPerSession;
 
         doctor
           .save()
@@ -108,7 +108,7 @@ const controllers = {
       if (doctor === null) {
          return res.json({message:"Doctor not found in the database!"})
       }
-
+      
       // Doctor found
       // Find the date
       let count = 0;
