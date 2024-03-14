@@ -5,15 +5,15 @@ import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const DoctorForm = () => {
   const navigate=useNavigate();
-  //   const { user, loading } = useUserProfile();
+    const { user, loading } = useUserProfile();
 
   if (!user) {
-    return navigate("/")
+     navigate("/")
   }
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+     <div>Loading...</div>;
+  }
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",

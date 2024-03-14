@@ -17,6 +17,7 @@ import { NeurologistPage } from "../DoctorsPage/NeurologistPage";
 import { PediatricianPage } from "../DoctorsPage/PediatricianPage";
 import UserProfile from "./pages/Protectedroute";
 import DoctorForm from "./pages/doctorForm";
+import FeedbackForm from "../DoctorsPage/Feedback";
 function App() {
   const router = createBrowserRouter([
     {
@@ -84,6 +85,9 @@ function App() {
     {
       path:"/doctorform",
       element:<DoctorForm></DoctorForm>
+    },{
+      path:"/feedback",
+      element:<FeedbackForm></FeedbackForm>
     }
   ]);
   return (
