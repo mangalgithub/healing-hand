@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-
+import {GridLoader} from "react-spinners"
 export default function PatientHomePage() {
   const [pic, setPic] = useState("");
   const [name, setName] = useState("");
@@ -60,13 +60,13 @@ export default function PatientHomePage() {
     navigate("/");
   };
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+ 
   if (!user) {
     navigate("/")
   }
-
+  if (loading) {
+    <div>Loading</div>
+   }
 
   return (
     <div>

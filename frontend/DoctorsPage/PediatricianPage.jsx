@@ -33,10 +33,12 @@ import { useState,useEffect } from "react";
     const navigate=useNavigate();
     const { user, loading } = useUserProfile();
 
-  // if (!user) {
-  //   return navigate("/")
-  // }
-
+  if (!user) {
+     navigate("/")
+  }
+  if(loading){
+    <div>Loading</div>
+  }
 
 
   const [doctors, setDoctors] = useState([]);

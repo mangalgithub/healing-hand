@@ -7,11 +7,11 @@ const PatientData = () => {
     const { user, loading } = useUserProfile();
 
   if (!user) {
-    return navigate("/")
+     navigate("/")
   }
 
   if (loading) {
-    return <div>Loading...</div>;
+     <div>Loading...</div>;
   }
   const patients = [
     {
