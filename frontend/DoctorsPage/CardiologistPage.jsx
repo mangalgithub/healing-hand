@@ -54,12 +54,12 @@ export const CardiologistPage = () => {
   console.log(doctors);
  
   
-  // if (!user) {
-  //   return navigate("/")
-  // }
+  if (!user) {
+     navigate("/")
+  }
 
   if (loading) {
-    return <div>Loading...</div>;
+     <div>Loading...</div>;
   }
 
 

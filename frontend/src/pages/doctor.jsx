@@ -17,9 +17,14 @@ function Doctor() {
   }
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const userName = "John Doe";
+  
+  const userName = "John doe"
   const userPhoto = "https://via.placeholder.com/40";
 
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    navigate("/");
+  };
   const handleToggleClick = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -41,12 +46,18 @@ function Doctor() {
 
   return (
     <>
-      <div className="bg-emerald-900 py-4">
+        <div className="bg-emerald-900 py-4">
         <div className="container mx-auto flex items-center justify-between">
-          <Link to="/" className="text-white text-lg font-semibold"></Link>
+          <Link to="/" className="text-white text-lg font-semibold">Doctor App</Link>
           <div className="flex items-center">
             <img src={userPhoto} alt="User" className="w-8 h-8 rounded-full mr-2" />
             <div className="text-white">{userName}</div>
+            <button
+              onClick={handleLogout}
+              className="ml-4 p-2 rounded bg-red-500 text-white"
+            >
+              Logout
+            </button>
           </div>
         </div>
       </div>
