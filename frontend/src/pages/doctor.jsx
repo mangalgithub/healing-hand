@@ -1,25 +1,24 @@
-import React, { useState,useEffect } from "react";
-import { Link ,useNavigate} from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./doctor.css";
-import ProfilePage from "./profile";
 import Appointments from "./appointments";
 import useUserProfile from "../../DoctorsPage/Initialpage";
+
 function Doctor() {
   const navigate=useNavigate();
-    // const { user, loading } = useUserProfile();
+    const { user, loading } = useUserProfile();
 
-  // if (!user) {
-  //   return navigate("/")
-  // }
+  if (!user) {
+     navigate("/")
+  }
 
-  // if (loading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (loading) {
+     <div>Loading...</div>;
+  }
   const [darkMode, setDarkMode] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
-   const userName = "John Doe";
-   const userPhoto = "https://via.placeholder.com/40";
- 
+  const userName = "John Doe";
+  const userPhoto = "https://via.placeholder.com/40";
 
   const handleToggleClick = () => {
     setSidebarOpen(!sidebarOpen);
@@ -28,18 +27,18 @@ function Doctor() {
   const handleModeSwitch = () => {
     setDarkMode(!darkMode);
   };
- useEffect(() => {
-  console.log("Doctor page loaded");
-   const body = document.querySelector("body");
 
-   if (darkMode) {
-     body.classList.add("dark");
-   } else {
-     body.classList.remove("dark");
-   }
- }, [darkMode]);
+  useEffect(() => {
+    console.log("Doctor page loaded");
+    const body = document.querySelector("body");
 
- 
+    if (darkMode) {
+      body.classList.add("dark");
+    } else {
+      body.classList.remove("dark");
+    }
+  }, [darkMode]);
+
   return (
     <>
       <div className="bg-emerald-900 py-4">
@@ -79,7 +78,7 @@ function Doctor() {
             <div className="menu-bar">
               <div className="menu">
                 <ul className="menu-links">
-                  <li className="search-bar" >
+                  <li className="search-bar">
                     <i className="bx bx-search icons" />
                     <input type="search" placeholder="Search..." />
                   </li>
@@ -107,9 +106,15 @@ function Doctor() {
                 <li className="nav-link">
                   <a href="#">
                     <i className="bx bx-log-out icons" />
-                    <span className="text nav-text"
-                      onClick={() => {navigate("/");localStorage.clear();}}
-                    >Log Out</span>
+                    <span
+                      className="text nav-text"
+                      onClick={() => {
+                        navigate("/");
+                        localStorage.clear();
+                      }}
+                    >
+                      Log Out
+                    </span>
                   </a>
                 </li>
 
@@ -119,7 +124,9 @@ function Doctor() {
                     <i
                       className={`bx bx-moon icons ${darkMode ? "moon" : ""}`}
                     />
-                    <i className={`bx bx-sun icons ${darkMode ? "" : "sun"}`} />
+                    <i
+                      className={`bx bx-sun icons ${darkMode ? "" : "sun"}`}
+                    />
                   </div>
                   <span className="mode-text text">
                     {darkMode ? "Light Mode" : "Dark Mode"}

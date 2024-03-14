@@ -63,13 +63,11 @@ export default function PatientHomePage() {
   if (loading) {
     return <div>Loading...</div>;
   }
-  
   if (!user) {
-    return <div>User not found</div>;
+    navigate("/")
   }
 
-  
-// console.log(doctors);
+
   return (
     <div>
       <div className="bg-emerald-900 py-4">

@@ -33,7 +33,7 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     const salt = await bcrypt.genSalt(saltRounds);
     const hashedpassword = await bcrypt.hash(password, salt);
     const user = await User.create({ name, email, password: hashedpassword, role, pic });
-    console.log(user)
+   // console.log(user)
     if (user) {
       const token = generatetoken(user._id);
       return res.status(200).json({
@@ -94,9 +94,7 @@ export const loginUser = asyncHandler(async (req, res, next) => {
 
 
 // Middleware to verify JWT token
-export const verifyToken = (req, res, next) => {
-  
-};
+
 
 // Protected route example
 // app.get('/api/user/profile', verifyToken, (req, res) => {
