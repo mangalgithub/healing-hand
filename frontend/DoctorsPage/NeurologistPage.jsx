@@ -1,5 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import useUserProfile from "./Initialpage";
+import {useEffect,useState} from "react"
+import axios from "axios";
 const NeurologistDoctors = [
     {
       name: "Dr. William Taylor",
@@ -67,13 +69,27 @@ const NeurologistDoctors = [
     const navigate=useNavigate();
     const { user, loading } = useUserProfile();
 
-  if (!user) {
-    return navigate("/")
-  }
-
+  // if (!user) {
+  //   return navigate("/")
+  // }
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const doctorData = await axios.get("http://localhost:5000/api/");
+        console.log(doctorData.data);
+        setDoctors(doctorData.data);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+    getDoctors();
+  }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
+  console.log(doctors)
+  const NeurologistDoctors = doctors.filter(doctor => doctor.specialization === 'Neurologist');
     return (
       <div className="container mx-auto px-4">
         <h2 className="text-2xl font-semibold mb-4">Neurologist Doctors</h2>

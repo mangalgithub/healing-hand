@@ -44,12 +44,12 @@ const dateSchedule = new Schema({
 });
 
 const doctorSchema = new Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
+  // username: {
+  //   type: String,
+  //   required: true,
+  //   unique: true,
+  // },
+  description: {
     type: String,
     required: true,
   },
@@ -59,7 +59,7 @@ const doctorSchema = new Schema({
   email: {
     type: String,
   },
-  phoneNumber: {
+  experience: {
     type: String,
   },
   specialization: {

@@ -7,6 +7,7 @@ export default function PatientHomePage() {
   const [pic, setPic] = useState("");
   const [name, setName] = useState("");
   const [user, setUser] = useState(null);
+  const [doctors,setDoctors]=useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -30,10 +31,30 @@ export default function PatientHomePage() {
         setLoading(false);
       }
     };
-
+    
+    // const getDoctors=async (e)=>{
+    //   const doctorData=await axios.get("http://localhost:5000/api/");
+    //   console.log(doctorData.data);
+      
+    //   // console.log(doctors);
+    // }
+    // getDoctors();
+    
     getUserProfile();
+    
   }, []);
-
+  // const getDoctors = async () => {
+  //   try {
+  //     const doctorData = await axios.get("http://localhost:5000/api/");
+  //     console.log(doctorData.data);
+  //     setDoctors(doctorData.data); // Set the data into the doctors array
+  //   } catch (error) {
+  //     console.error('Error fetching doctors:', error);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getDoctors();
+  // }, []);
   const handleLogout = () => {
     localStorage.removeItem('token');
     navigate("/");
@@ -48,7 +69,7 @@ export default function PatientHomePage() {
   }
 
   
-
+// console.log(doctors);
   return (
     <div>
       <div className="bg-emerald-900 py-4">

@@ -1,42 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
 import useUserProfile from "./Initialpage";
-const PediatricianDoctors = [
-    {
-      name: "Dr. Oliver Wilson",
-      rating: 4.5,
-      experience: "10 years",
-      phoneNumber: "+1234567890",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Sophia Lee",
-      rating: 4.2,
-      experience: "8 years",
-      phoneNumber: "+1987654321",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Lucas Brown",
-      rating: 4.8,
-      experience: "15 years",
-      phoneNumber: "+1122334455",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Mia Clark",
-      rating: 4.1,
-      experience: "7 years",
-      phoneNumber: "+1567890123",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Ethan Johnson",
-      rating: 4.7,
-      experience: "12 years",
-      phoneNumber: "+1346798521",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-  ];
+import axios from "axios";
+import { useState,useEffect } from "react";
+
 
   
   const DoctorCard = ({ doctor }) => {
@@ -67,13 +33,30 @@ const PediatricianDoctors = [
     const navigate=useNavigate();
     const { user, loading } = useUserProfile();
 
-  if (!user) {
-    return navigate("/")
-  }
+  // if (!user) {
+  //   return navigate("/")
+  // }
 
+
+
+  const [doctors, setDoctors] = useState([]);
+  useEffect(() => {
+    const getDoctors = async () => {
+      try {
+        const doctorData = await axios.get("http://localhost:5000/api/");
+        console.log(doctorData.data);
+        setDoctors(doctorData.data);
+      } catch (error) {
+        console.error('Error fetching doctors:', error);
+      }
+    };
+    getDoctors();
+  }, []);
   if (loading) {
     return <div>Loading...</div>;
   }
+  
+  const PediatricianDoctors = doctors.filter(doctor => doctor.specialization === 'Pediatrician');
     return (
       <div className="container mx-auto px-4">
         <h2 className="text-2xl font-semibold mb-4">Pediatrician Doctors</h2>
