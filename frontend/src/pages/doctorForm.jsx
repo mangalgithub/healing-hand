@@ -4,16 +4,17 @@ import axios from "axios"
 import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const DoctorForm = () => {
-  const navigate=useNavigate();
-    const { user, loading } = useUserProfile();
+  // const navigate=useNavigate();
+    // const { user, loading } = useUserProfile();
 
-  if (!user) {
-     navigate("/")
-  }
+  // if (!user) {
+  //    navigate("/")
+  // }
 
-  if (loading) {
-     <div>Loading...</div>;
-  }
+
+  // if (loading) {
+  //    <div>Loading...</div>;
+  // }
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",

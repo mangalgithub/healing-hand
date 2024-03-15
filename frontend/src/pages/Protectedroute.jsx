@@ -28,13 +28,13 @@ function UserProfile() {
 
     getUserProfile();
   }, []);
-  if (!user) {
-    return <div>User not found</div>;
-  }
-  if (loading) {
-    return <div>Loading...</div>;
+  // if (!user) {
+  //   return <div>User not found</div>;
+  // }
+  // if (loading) {
+  //   return <div>Loading...</div>;
     
-  }
+  // }
 
   
 

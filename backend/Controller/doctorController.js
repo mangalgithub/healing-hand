@@ -1,8 +1,5 @@
 import doctors from "../models/doctorModels.js";
 import appointmentImport from "../models/appointmentModels.js";
-// const bcrypt = require("../bcrypt/bcrypt");
-// const jwt = require("jsonwebtoken");
-// require("dotenv").config();
 const { Doctor, Slot, DateSchedule } = doctors;
 const { Appointment, Feedback } = appointmentImport;
 
@@ -36,7 +33,19 @@ const controllers = {
         res.status(400).json(`Error : ${err}`);
       });
   },
-
+  // getDoctor: (req, res) => {
+  //   const id = req.params.id;
+  //   Doctor
+  //     .findById
+  //     (id)
+  //     .then((doctor) => {
+  //       res.json(doctor);
+  //     })
+  //     .catch((err) => {
+  //       res.status(400).json(`Error : ${err}`);
+  //     }
+  //     );  
+  // },
   addDoctor: (req, res) => {
     const name = req.body.name; // Required.. can't be undefined
     const email = req.body.email;
@@ -145,7 +154,7 @@ const controllers = {
 
   bookSlot: (req, res) => {
     // Implementation for booking a slot
-    const patientId = req.body.googleId; // Patient's google id
+    // const patientId = req.body.googleId; // Patient's google id
     const patientName = req.body.patientName; // Patient's name
     const doctorId = req.body.doctorId; // Doctor's id 606460d2e0dd28cc76d9b0f3
     const slotId = req.body.slotId; // Id of that particular slot

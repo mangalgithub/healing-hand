@@ -1,18 +1,38 @@
-import React from "react";
+import React ,{useEffect,useState}from "react";
 import { useNavigate } from "react-router-dom";
 import useUserProfile from "../../DoctorsPage/Initialpage";
-
+import controllers from "../../../backend/Controller/doctorController.js";
+import Axios from "axios";
+import { jwtDecode } from "jwt-decode";
 function Appointments() {
-  const navigate=useNavigate();
-    const { user, loading } = useUserProfile();
+   const [appointments, setAppointments] = useState([]);
 
-  if (!user) {
-     navigate("/")
-  }
+  // if (!user) {
+  //    navigate("/")
+  // }
 
-  if (loading) {
-     <div>Loading...</div>;
-  }
+  // if (loading) {
+  //    <div>Loading...</div>;
+  // }
+
+   useEffect(() => {
+     const fetchAppointments = async () => {
+        var token = localStorage.getItem("token");
+        const decoded = jwtDecode(token);
+       const { data } = await Axios.post(
+        "http://localhost:5000/api/todays-appointments",
+         {
+           doctorId:decoded._id,
+         }
+       );
+
+       setAppointments(data);
+       console.log(data);
+     };
+
+     fetchAppointments();
+   }, []);
+
   return (
     <>
       <section className="text-gray-600 body-font">
@@ -46,7 +66,7 @@ function Appointments() {
                 </tr>
               </thead>
               <tbody>
-                <tr>
+                {/* <tr>
                   <td className="px-4 py-3">Patient1</td>
                   <td className="px-4 py-3">2:00pm</td>
                   <td className="px-4 py-3">1234490</td>
@@ -93,7 +113,20 @@ function Appointments() {
                   <td className="border-t-2 border-gray-200 px-4 py-3">
                     magjal
                   </td>
-                </tr>
+                </tr> */}
+
+                {appointments.map((appointment) => (
+                  <tr key={appointment._id}>
+                    <th scope="row">{appointment.date}</th>
+                    <th scope="row">{appointment.slotTime}</th>
+                    <th scope="row">{appointment.patientName}</th>
+                    <th scope="row">
+                      <a href={appointment.googleMeetLink} target="_blank">
+                        Join Meet
+                      </a>
+                    </th>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>

@@ -3,6 +3,7 @@ import controllers from "../Controller/doctorController.js";
 const router = express.Router();
 
 router.get("/", controllers.getAllDoctors);
+// router.get("/:id", controllers.getDoctor);
 router.post("/add", controllers.addDoctor);
 router.put("/update", controllers.updateDoctor);
 router.post("/login", controllers.doctorLogin);

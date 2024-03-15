@@ -23,7 +23,7 @@ const DoctorCard = ({ doctor }) => {
         <span className="text-gray-600 mr-2">Phone:</span>
         <span className="text-gray-800">{doctor.phoneNumber}</span>
       </div>
-      <Link to="/appointment" className="block bg-red-500  px-4 py-2 rounded-md hover:bg-emerald-600"
+      <Link to="/dateModal" className="block bg-red-500  px-4 py-2 rounded-md hover:bg-emerald-600"
         onClick={()=>{
           console.log(doctor._id)
         }}
