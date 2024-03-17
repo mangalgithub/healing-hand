@@ -17,17 +17,20 @@ function Appointments() {
 
    useEffect(() => {
      const fetchAppointments = async () => {
-        var token = localStorage.getItem("token");
+       var token = localStorage.getItem("token"); 
         const decoded = jwtDecode(token);
+        console.log("decoded ",decoded);
        const { data } = await Axios.post(
-        "http://localhost:5000/api/todays-appointments",
+         "http://localhost:5000/api/todays-appointments",
          {
-           doctorId:decoded._id,
+           //  doctorId:decoded._id,
+           doctorId: "65f18db82a8d3003f26ce6f4",
          }
        );
 
        setAppointments(data);
        console.log(data);
+       console.log("doctor id",decoded._id);
      };
 
      fetchAppointments();

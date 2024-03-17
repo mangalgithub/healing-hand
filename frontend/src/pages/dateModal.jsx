@@ -1,31 +1,44 @@
-import axios from "axios";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import axios from "axios";
 import useUserProfile from "../../DoctorsPage/Initialpage";
+
 const DatePicker = () => {
   const [selectedDate, setSelectedDate] = useState("");
   const { doctorId } = useParams();
+  const navigate = useNavigate();
   const { user, loading } = useUserProfile();
+
   const handleDateChange = (e) => {
     setSelectedDate(e.target.value);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // You can handle the submission here, such as sending the selectedDate to the backend
     try {
       const slot = await axios.post("http://localhost:5000/api/get-slots", {
         doctorId: doctorId,
         date: selectedDate,
       });
       console.log(slot.data);
+
+      // Navigate to the "book slot" page and pass data via state
+      navigate(`/timeslot/${doctorId}`, {
+        state: {
+          date: selectedDate,
+          slots: slot.data,
+        },
+      });
     } catch (err) {
       console.log(err);
     }
 
     console.log("Submitted Date:", selectedDate);
   };
-   console.log(user);
+
+  console.log(user);
+
   return (
     <div className="flex items-center justify-center h-screen">
       <form onSubmit={handleSubmit}>

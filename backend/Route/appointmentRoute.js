@@ -4,5 +4,6 @@ const router = express.Router();
 
 router.post("/addMeetLink", AppointmentController.addMeetLink);
 router.post("/updateFeedback", AppointmentController.updateFeedback);
+router.post("/sendNotification", AppointmentController.sendNotification);
 export default router;
 

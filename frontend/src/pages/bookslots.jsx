@@ -1,32 +1,36 @@
 import React, { useState } from "react";
-
+import axios from "axios";
+import { useLocation } from "react-router-dom";
+import useUserProfile from "../../DoctorsPage/Initialpage";
 const TimeSlotSelector = () => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [submittedTimeSlot, setSubmittedTimeSlot] = useState("");
-
-  const timeSlots = [
-    "9:00 AM - 10:00 AM",
-    "10:00 AM - 11:00 AM",
-    "11:00 AM - 12:00 PM",
-    "12:00 PM - 1:00 PM",
-    "1:00 PM - 2:00 PM",
-    "2:00 PM - 3:00 PM",
-    "3:00 PM - 4:00 PM",
-    "4:00 PM - 5:00 PM",
-  ];
-
+   const { state } = useLocation();
+    const { date, slots } = state || {};
+     const { user, loading } = useUserProfile();
+     console.log("user",user);
+    console.log("slots",slots);
+  const timeSlots = slots.slots;
+  console.log("timeslot",timeSlots);
   const handleTimeSlotChange = (e) => {
     setSelectedTimeSlot(e.target.value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     setSubmittedTimeSlot(selectedTimeSlot);
-    try {
+      try {
+      const response = await axios.post("http://localhost:5000/api/sendNotification", {
+        patientName: user.name,
+        date: date,
+        timeSlot: selectedTimeSlot,
+      });
+      console.log(response.data); // Log the response from the backend
+
       console.log("Submitted Time Slot:", selectedTimeSlot);
     } catch (err) {
-        console.log(err);
-        }
+      console.log(err);
+    }
   };
 
   return (
@@ -41,8 +45,8 @@ const TimeSlotSelector = () => {
           >
             <option value="">Select Time Slot</option>
             {timeSlots.map((slot, index) => (
-              <option key={index} value={slot}>
-                {slot}
+              <option key={index} value={slot.time}>
+                {slot.time}
               </option>
             ))}
           </select>

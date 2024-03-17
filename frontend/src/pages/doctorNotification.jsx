@@ -1,11 +1,12 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import useUserProfile from "../../DoctorsPage/Initialpage";
 
 const PatientData = () => {
   const navigate=useNavigate();
     const { user, loading } = useUserProfile();
-
+   const [acceptedPatients, setAcceptedPatients] = useState([]);
+    // const [patients, setPatients] = useState([]);
   if (!user) {
      navigate("/")
   }
@@ -28,6 +29,15 @@ const PatientData = () => {
     },
     // Add more patients as needed
   ];
+   
+  const handleAccept = (patient) => {
+   setAcceptedPatients([...acceptedPatients, patient]);
+ };
+
+ const handleReject = (index) => {
+   const updatedPatients = patients.filter((_, i) => i !== index);
+   setPatients(updatedPatients);
+ };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -61,10 +71,17 @@ const PatientData = () => {
                 {patient.scheduledTime}
               </td>
               <td className="border border-gray-200 px-4 py-2">
-                <button className="bg-green-500 text-white px-4 py-2 mr-2 rounded hover:bg-green-600">
+                <button
+                  className="bg-green-500 text-white px-4 py-2 mr-2 rounded hover:bg-green-600
+                "
+                  onClick={() => handleAccept(patient)}
+                >
                   Accept
                 </button>
-                <button className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                <button
+                  className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                  onClick={() => handleReject(index)}
+                >
                   Reject
                 </button>
               </td>

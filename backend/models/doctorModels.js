@@ -42,7 +42,20 @@ const dateSchedule = new Schema({
   },
   slots: [slotSchema],
 });
-
+ const requestedAppointment = new Schema({
+       patientName: {
+         type: String,
+         required: true,
+       },
+       date: {
+         type: Date,
+         required: true,
+       },
+       timeSlot: {
+         type: String,
+         required: true,
+       },
+ });
 const doctorSchema = new Schema({
   // username: {
   //   type: String,
@@ -71,9 +84,10 @@ const doctorSchema = new Schema({
 const Doctor = mongoose.model("Doctor", doctorSchema);
 const Slot = mongoose.model("Slot", slotSchema);
 const DateSchedule = mongoose.model("DateSchedule", dateSchedule);
-
+const RequestedAppointment=mongoose.model("RequestedAppointment",requestedAppointment);
 export default {
   Doctor,
   Slot,
   DateSchedule,
+  RequestedAppointment,
 };
