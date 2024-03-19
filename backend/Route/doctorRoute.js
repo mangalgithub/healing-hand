@@ -1,8 +1,10 @@
 import express from "express";
 import controllers from "../Controller/doctorController.js";
+import { getDoctor } from "../Controller/userController.js";
 const router = express.Router();
 
 router.get("/", controllers.getAllDoctors);
+router.get("/getDoctor",getDoctor);
 // router.get("/:id", controllers.getDoctor);
 router.post("/add", controllers.addDoctor);
 router.put("/update", controllers.updateDoctor);
@@ -13,4 +15,8 @@ router.post("/appointments", controllers.getAppointments);
 router.get("/appointment/:id", controllers.getAppointmentById);
 router.post("/todays-appointments", controllers.getTodaysAppointments);
 router.post("/previous-appointments", controllers.getPreviousAppointments);
+router.post("/requestedAppointments", controllers.requestedAppointment);
+router.get("/getRequestedAppointments",controllers.getRequestedAppointments);
+router.post("/acceptedAppointments",controllers.acceptedAppointment);
+router.get("/getAcceptedAppointments",controllers.getAcceptedAppointments);
 export default router;

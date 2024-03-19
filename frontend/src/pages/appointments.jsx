@@ -1,40 +1,47 @@
 import React ,{useEffect,useState}from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import useUserProfile from "../../DoctorsPage/Initialpage";
 import controllers from "../../../backend/Controller/doctorController.js";
-import Axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import axios from "axios";
+// import useUserProfile from "../../DoctorsPage/Initialpage";
+import useDoctorProfile from "../../DoctorsPage/Initialpage";
 function Appointments() {
    const [appointments, setAppointments] = useState([]);
+   const { user, loading } = useDoctorProfile();
 
-  // if (!user) {
-  //    navigate("/")
-  // }
+  if (!user) {
+     navigate("/")
+  }
 
-  // if (loading) {
-  //    <div>Loading...</div>;
-  // }
+  if (loading) {
+     <div>Loading...</div>;
+  }
+  const {doctorId}=useParams();
+  console.log(doctorId);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:5000/api/getAcceptedAppointments", {
+          params: {
+            doctorId: doctorId
+          }
+        });
+        console.log(response.data)
 
-   useEffect(() => {
-     const fetchAppointments = async () => {
-       var token = localStorage.getItem("token"); 
-        const decoded = jwtDecode(token);
-        console.log("decoded ",decoded);
-       const { data } = await Axios.post(
-         "http://localhost:5000/api/todays-appointments",
-         {
-           //  doctorId:decoded._id,
-           doctorId: "65f18db82a8d3003f26ce6f4",
-         }
-       );
+        const uniqueAppointments = response.data.filter((appointment, index, self) =>
+        index === self.findIndex((t) => (
+          t.patientName === appointment.patientName
+        ))
+      );
+        setAppointments(uniqueAppointments);
+      } catch (error) {
+        console.log("error is ", error);
+      }
+    };
 
-       setAppointments(data);
-       console.log(data);
-       console.log("doctor id",decoded._id);
-     };
+    fetchData();
+  }, [doctorId]);
 
-     fetchAppointments();
-   }, []);
 
   return (
     <>
@@ -58,71 +65,26 @@ function Appointments() {
                     Patient
                   </th>
                   <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
+                    Date
+                  </th>
+                  <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
                     Time
                   </th>
                   <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                    Contact Number
-                  </th>
-                  <th className="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                    Email
+                    Google Meet Link
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {/* <tr>
-                  <td className="px-4 py-3">Patient1</td>
-                  <td className="px-4 py-3">2:00pm</td>
-                  <td className="px-4 py-3">1234490</td>
-                  <td className="px-4 py-3">mnlajf</td>
-                </tr>
-                <tr>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    Patient2
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    3:00pm
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    1234490
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    magjal
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    Patient3
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    4:00pm
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    1234490
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    magjal
-                  </td>
-                </tr>
-                <tr>
-                  <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">
-                    Patient4
-                  </td>
-                  <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">
-                    5:00pm
-                  </td>
-                  <td className="border-t-2 border-b-2 border-gray-200 px-4 py-3">
-                    1234490
-                  </td>
-                  <td className="border-t-2 border-gray-200 px-4 py-3">
-                    magjal
-                  </td>
-                </tr> */}
-
+               
                 {appointments.map((appointment) => (
                   <tr key={appointment._id}>
-                    <th scope="row">{appointment.date}</th>
-                    <th scope="row">{appointment.slotTime}</th>
+                    
                     <th scope="row">{appointment.patientName}</th>
+                    {/* <th scope="row">{appointment.slotTime}</th> */}
+                    <th scope="row">{new Date(appointment.date).toLocaleDateString("en-GB")}</th>
+                    {/* <th scope="row">{appointment.date}</th> */}
+                    <th scope="row">{appointment.timeSlot}</th>
                     <th scope="row">
                       <a href={appointment.googleMeetLink} target="_blank">
                         Join Meet

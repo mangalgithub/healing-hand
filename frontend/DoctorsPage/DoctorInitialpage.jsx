@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 const temp={
-  id:"i"
+  id:"is"
 }
-const useUserProfile = () => {
+const useDoctorProfile = () => {
   const [user, setUser] = useState(temp);
   const [loading, setLoading] = useState(true);
 
@@ -11,13 +11,13 @@ const useUserProfile = () => {
     const getUserProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const userData = await axios.get("http://localhost:5000/api/getprofile", {
+        const userData = await axios.get("http://localhost:5000/api/getDoctor", {
           headers: {
             'Content-Type': 'application/json',
             "Authorization": `Bearer ${token}`
           }
         });
-
+        console.log(userData)
         setUser(userData.data);
         setLoading(false);
       } catch (error) {
@@ -32,4 +32,4 @@ const useUserProfile = () => {
   return { user, loading };
 };
 
-export default useUserProfile;
+export default useDoctorProfile;

@@ -56,6 +56,20 @@ const dateSchedule = new Schema({
          required: true,
        },
  });
+ const acceptedAppointment = new Schema({
+  patientName: {
+    type: String,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+  timeSlot: {
+    type: String,
+    required: true,
+  },
+});
 const doctorSchema = new Schema({
   // username: {
   //   type: String,
@@ -63,8 +77,7 @@ const doctorSchema = new Schema({
   //   unique: true,
   // },
   description: {
-    type: String,
-    required: true,
+    type: String
   },
   name: {
     type: String,
@@ -78,16 +91,32 @@ const doctorSchema = new Schema({
   specialization: {
     type: String,
   },
+  password: {
+    type: String,
+    required: true,
+  },
+  pic: {
+    type: String,
+    // default: "https://res.cloudinary.com/dkxk3h6aa/image/upload/v1625070974/doctorProfilePic_lqzv5p.png",
+  },
+  role:{
+    type:String,
+    default:"doctor"
+  },
   dates: [dateSchedule],
+  requestedAppointment:[requestedAppointment],
+  acceptedAppointment:[acceptedAppointment]
 });
 
 const Doctor = mongoose.model("Doctor", doctorSchema);
 const Slot = mongoose.model("Slot", slotSchema);
 const DateSchedule = mongoose.model("DateSchedule", dateSchedule);
 const RequestedAppointment=mongoose.model("RequestedAppointment",requestedAppointment);
+const AcceptedAppointment=mongoose.model("AcceptedAppointment",acceptedAppointment);
 export default {
   Doctor,
   Slot,
   DateSchedule,
   RequestedAppointment,
+  AcceptedAppointment
 };

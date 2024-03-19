@@ -2,49 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import useUserProfile from "./Initialpage";
 import {useEffect,useState} from "react"
 import axios from "axios";
-const NeurologistDoctors = [
-    {
-      name: "Dr. William Taylor",
-      rating: 4.6,
-      experience: "11 years",
-      phoneNumber: "+1987654321",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Lily Moore",
-      rating: 4.3,
-      experience: "8 years",
-      phoneNumber: "+1346798521",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Benjamin Hall",
-      rating: 4.8,
-      experience: "14 years",
-      phoneNumber: "+1456789234",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Olivia Wright",
-      rating: 4.5,
-      experience: "10 years",
-      phoneNumber: "+1567890123",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-    {
-      name: "Dr. Ethan Parker",
-      rating: 4.7,
-      experience: "13 years",
-      phoneNumber: "+1122334455",
-      photo: "https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg",
-    },
-  ];
-
-
   const DoctorCard = ({ doctor }) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-4">
-        <img src={doctor.photo} alt={doctor.name} className="w-full h-40 object-cover rounded-md mb-4" />
+         <img src="https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" alt="https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" className="w-full h-40 object-cover rounded-md mb-4" />
         <h3 className="text-xl font-semibold mb-2">{doctor.name}</h3>
         <div className="flex items-center mb-2">
           <span className="text-gray-600 mr-2">Rating:</span>
@@ -58,9 +19,9 @@ const NeurologistDoctors = [
           <span className="text-gray-600 mr-2">Phone:</span>
           <span className="text-gray-800">{doctor.phoneNumber}</span>
         </div>
-        <Link to="/dateModal" className="block  bg-red-500 px-4 py-2 rounded-md hover:bg-emerald-600">
-          Book Appointment
-        </Link>
+        <Link to={`/dateModal/${doctor._id}` }className="block bg-red-500  px-4 py-2 rounded-md hover:bg-emerald-600">
+        Book Appointment
+      </Link>
       </div>
     );
   };

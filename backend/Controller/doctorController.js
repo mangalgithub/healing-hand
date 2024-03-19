@@ -33,19 +33,7 @@ const controllers = {
         res.status(400).json(`Error : ${err}`);
       });
   },
-  // getDoctor: (req, res) => {
-  //   const id = req.params.id;
-  //   Doctor
-  //     .findById
-  //     (id)
-  //     .then((doctor) => {
-  //       res.json(doctor);
-  //     })
-  //     .catch((err) => {
-  //       res.status(400).json(`Error : ${err}`);
-  //     }
-  //     );  
-  // },
+ 
   addDoctor: (req, res) => {
     const name = req.body.name; // Required.. can't be undefined
     const email = req.body.email;
@@ -78,13 +66,14 @@ const controllers = {
 
   updateDoctor: (req, res) => {
     // Implementation for updating a doctor
-    const username = req.body.name; // Required.. can't be undefined
+    const name = req.body.name; // Required.. can't be undefined
 
     Doctor.findOne({ name: name }).then((doctor) => {
       if (doctor) {
         // doctor.username = req.body.username;
-        doctor.phoneNumber = req.body.phoneNumber;
+        doctor.description = req.body.description;
         doctor.specialization = req.body.specialization;
+        doctor.experience=req.body.experience;
         // doctor.feesPerSession = req.body.feesPerSession;
 
         doctor
@@ -101,10 +90,7 @@ const controllers = {
     });
   },
 
-  doctorLogin: async (req, res) => {
-    // Implementation for doctor login
-  },
-
+ 
   getSlots: async (req, res) => {
     // Implementation for getting slots available for a date
     try {
@@ -272,6 +258,104 @@ const controllers = {
       res.status(400).json(err);
     }
   },
+
+  requestedAppointment: async (req, res) => {
+    try {
+      const { patientName, date, timeSlot,doctorId } = req.body;
+      // const doctorId = req.params.doctorId;
+      // console.log(doctorId);
+      // Find the doctor by ID
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+
+      // Create a new requested appointment
+      doctor.requestedAppointment.push({ patientName, date, timeSlot });
+      await doctor.save();
+
+      res.status(201).json({ message: 'Requested appointment created successfully' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+acceptedAppointment: async (req, res) => {
+    try {
+      const { patientName, date, timeSlot,doctorId } = req.body;
+      // const doctorId = req.params.doctorId;
+      // console.log(doctorId);
+      // Find the doctor by ID
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+
+      // Create a new requested appointment
+      doctor.acceptedAppointment.push({ patientName, date, timeSlot });
+      await doctor.save();
+
+      res.status(201).json({ data: {
+        patientName:patientName,
+        date:date,
+        timeSlot:timeSlot
+      } });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
+  getRequestedAppointments: async(req,res)=>{
+    try {
+      const {doctorId}=req.query;
+      //  const doctorId="65f1fa27d91fc58416e36a9c"
+      // console.log(doctorId);
+      console.log(doctorId);
+      // const doctorId = req.params.doctorId;
+
+      // Find the doctor by ID
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+
+      // Get the requested appointments for the doctor
+      const requestedAppointments = doctor.requestedAppointment;
+
+      res.status(200).json(requestedAppointments);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+  getAcceptedAppointments: async(req,res)=>{
+    try {
+      const {doctorId}=req.query;
+      
+      //  const doctorId="65f1fa27d91fc58416e36a9c"
+      // console.log(doctorId);
+      console.log(doctorId);
+      // const doctorId = req.params.doctorId;
+
+      // Find the doctor by ID
+      const doctor = await Doctor.findById(doctorId);
+      if (!doctor) {
+        return res.status(404).json({ error: 'Doctor not found' });
+      }
+
+      // Get the requested appointments for the doctor
+      const acceptedAppointments = doctor.acceptedAppointment;
+
+      res.status(200).json(acceptedAppointments);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  },
+
+
+
 
   getPreviousAppointments: async (req, res) => {
     // Implementation for getting previous appointments of a doctor
