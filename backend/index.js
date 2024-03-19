@@ -15,7 +15,7 @@ app.use(cors());
 app.use("/api",userRoute);
 app.use("/api",doctorRoute);
 app.use("/api",appointmentRoute);
-app.get('/',(req,res)=>{
+app.get("/",(req,res)=>{
     res.send('Hello World');
 });
 app.listen(PORT,()=>{

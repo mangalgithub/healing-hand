@@ -8,7 +8,7 @@ router.get("/getDoctor",getDoctor);
 // router.get("/:id", controllers.getDoctor);
 router.post("/add", controllers.addDoctor);
 router.put("/update", controllers.updateDoctor);
-router.post("/login", controllers.doctorLogin);
+// router.post("/login", controllers.doctorLogin);
 router.post("/get-slots", controllers.getSlots);
 router.post("/book-slot", controllers.bookSlot);
 router.post("/appointments", controllers.getAppointments);

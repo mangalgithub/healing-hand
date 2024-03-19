@@ -2,6 +2,7 @@
 import asyncHandler from "express-async-handler";
 import User from "../models/userModels.js";
 import bcrypt from 'bcrypt';
+import validator from "validator";
 import jwt from 'jsonwebtoken';
 import doctorModels from "../models/doctorModels.js";
 const {Doctor} = doctorModels;
@@ -13,13 +14,35 @@ const generatetoken = (id) => {
   });
 };
 
+const checkPasswordStrength = (password) => {
+  // Add your password strength criteria here, for example:
+  const passwordRegex =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+  return passwordRegex.test(password);
+};
+
 export const registerUser = asyncHandler(async (req, res, next) => {
   try {
     const { name, email, password, role, pic } = req.body;
 
-    if (!name || !email || !password || !role ) {
+    if (!name || !email || !password || !role) {
       return res.status(400).json({
         message: "Not all information provided",
+      });
+    }
+
+    // Validate email format
+    if (!validator.isEmail(email)) {
+      return res.status(400).json({
+        message: "Invalid email format",
+      });
+    }
+
+    // Check password strength
+    if (!checkPasswordStrength(password)) {
+      return res.status(400).json({
+        message:
+          "Password should be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character",
       });
     }
 
@@ -37,9 +60,20 @@ export const registerUser = asyncHandler(async (req, res, next) => {
     let newUser;
 
     if (role === "doctor") {
-      newUser = await Doctor.create({ name, email, password: hashedPassword ,role});
+      newUser = await Doctor.create({
+        name,
+        email,
+        password: hashedPassword,
+        role,
+      });
     } else {
-      newUser = await User.create({ name, email, password: hashedPassword, pic, role });
+      newUser = await User.create({
+        name,
+        email,
+        password: hashedPassword,
+        pic,
+        role,
+      });
     }
 
     if (newUser) {
