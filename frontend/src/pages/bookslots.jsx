@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useUserProfile from "../../DoctorsPage/Initialpage";
 const TimeSlotSelector = () => {
   const [selectedTimeSlot, setSelectedTimeSlot] = useState("");
   const [submittedTimeSlot, setSubmittedTimeSlot] = useState("");
    const { state } = useLocation();
+   const { doctorId } = useParams();
+   console.log(doctorId);
     const { date, slots } = state || {};
      const { user, loading } = useUserProfile();
      console.log("user",user);
@@ -25,12 +28,27 @@ const TimeSlotSelector = () => {
         date: date,
         timeSlot: selectedTimeSlot,
       });
-      console.log(response.data); // Log the response from the backend
+      console.log(response.data.data); // Log the response from the backend
 
       console.log("Submitted Time Slot:", selectedTimeSlot);
     } catch (err) {
       console.log(err);
     }
+
+    try{
+      const response= await axios.post("http://localhost:5000/api/requestedAppointments",{
+        patientName:user.name,
+        date:date,
+        timeSlot:selectedTimeSlot,
+        doctorId:doctorId
+      });
+
+      console.log(response);
+      
+    }catch(err){
+      console.log(err);
+    }
+
   };
 
   return (

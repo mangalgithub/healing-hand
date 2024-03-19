@@ -33,7 +33,7 @@ function App() {
       element: <Popup></Popup>,
     },
     {
-      path: "/doctor",
+      path: "/doctor/:doctorId",
       element: <Doctor></Doctor>,
     },
     {
@@ -41,7 +41,7 @@ function App() {
       element:<ProfilePage></ProfilePage>
     },
     {
-      path: "/notification",
+      path: "/notification/:doctorId",
       element: <PatientData></PatientData>,
     },
     {

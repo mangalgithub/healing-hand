@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios"
-import useUserProfile from "../../DoctorsPage/Initialpage";
 
+import useDoctorProfile from "../../DoctorsPage/DoctorInitialpage";
 const DoctorForm = () => {
-  // const navigate=useNavigate();
-    // const { user, loading } = useUserProfile();
-
-  // if (!user) {
-  //    navigate("/")
-  // }
-
-
-  // if (loading) {
-  //    <div>Loading...</div>;
-  // }
+  const {user,loading}=useDoctorProfile();
+  console.log(user);
+  const doctorId=user.id;
+  const navigate=useNavigate();
   const [doctorDetails, setDoctorDetails] = useState({
     name: "",
     email: "",
@@ -40,14 +33,15 @@ const DoctorForm = () => {
     console.log(description)
     console.log(specialization)
     try{
-      const response=await axios.post("http://localhost:5000/api/add",{
+      const response=await axios.put("http://localhost:5000/api/update",{
       name:name,
-      email:email,
+      
       specialization:specialization,
       experience:experience,
       description:description
     })
       console.log(response.data);
+      navigate(`/doctor/${doctorId}`)
     }
     
   catch(err){

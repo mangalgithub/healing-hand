@@ -72,33 +72,17 @@ const AppointmentController = {
    console.log("patientName ",patientName);
     console.log("date ",date);
     console.log("timeSlot ",timeSlot);
-  // Find the doctor by doctorId
-//   const doctor =  Doctor.findOne({ doctorId: req.params.doctorId });
-//   console.log("doctor ",doctor);
-//   // Check if the doctor exists
-//   if (!doctor) {
-//     return res.status(404).json({ error: 'Doctor not found' });
-//   }
-
-//   // Create a new requested appointment
-//   const newAppointment = new RequestedAppointment({
-//     patientName,
-//     date,
-//     timeSlot,
-//   });
-
-//   // Push the new appointment to the doctor's requestedAppointments array
-//   doctor.requestedAppointments.push(newAppointment);
-
-//   // Save the updated doctor document
-//    doctor.save();
-
-//   // Log the notification message to console
-//   const notificationMessage = `Notification for Doctor: Patient ${patientName} has booked an appointment on ${date} at ${timeSlot}.`;
-//   console.log(notificationMessage);
-
-  // Send a response back to the client
-  res.status(200).json({ message: 'Notification sent successfully' });
+  const response={
+    message:"Notification sent successfully",
+    data:{  
+        patientName:patientName,
+        date:date,
+        timeSlot:timeSlot
+    }
+  
+  }
+  res.status(200).json(response);
+//   res.status(200).json({ message: 'Notification sent successfully' });
 } catch (err) {
   console.error(err);
   res.status(500).json({ error: 'Internal server error' });

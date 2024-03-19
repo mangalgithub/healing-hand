@@ -2,11 +2,15 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./doctor.css";
 import Appointments from "./appointments";
-import useUserProfile from "../../DoctorsPage/Initialpage";
+import useDoctorProfile from "../../DoctorsPage/DoctorInitialpage";
 
 function Doctor() {
   const navigate=useNavigate();
-    const { user, loading } = useUserProfile();
+    const { user, loading } = useDoctorProfile();
+    console.log(user);
+   
+
+
 
   if (!user) {
      navigate("/")
@@ -43,7 +47,12 @@ function Doctor() {
       body.classList.remove("dark");
     }
   }, [darkMode]);
+  console.log(user)
+  // const doctorId=1;
 
+  const doctorId=user.id;
+  console.log(doctorId)
+  // console.log(doctorId)
   return (
     <>
         <div className="bg-emerald-900 py-4">
@@ -93,18 +102,27 @@ function Doctor() {
                     <i className="bx bx-search icons" />
                     <input type="search" placeholder="Search..." />
                   </li>
-                  <li className="nav-link">
+                  {/* <li className="nav-link">
                     <a href="/doctor">
                       <i className="bx bx-home-alt icons" />
                       <span className="text nav-text">Dashboard</span>
                     </a>
+                  </li> */}
+                  <li className="nav-link">
+                    <Link to={`/doctor/${doctorId}`}>
+                    {/* <Link to="/notification"> */}
+                      <i className="bx bx-bell icons" />
+                      <span className="text nav-text">DashBoard</span>
+                    </Link>
                   </li>
                   <li className="nav-link">
-                    <a href="/notification">
+                    <Link to={`/notification/${doctorId}`}>
+                    {/* <Link to="/notification"> */}
                       <i className="bx bx-bell icons" />
                       <span className="text nav-text">Notifications</span>
-                    </a>
+                    </Link>
                   </li>
+
                   <li className="nav-link">
                     <a href="/review">
                       <i className="bx bx-heart icons" />
@@ -114,20 +132,7 @@ function Doctor() {
                 </ul>
               </div>
               <div className="bottom-content">
-                <li className="nav-link">
-                  <a href="#">
-                    <i className="bx bx-log-out icons" />
-                    <span
-                      className="text nav-text"
-                      onClick={() => {
-                        navigate("/");
-                        localStorage.clear();
-                      }}
-                    >
-                      Log Out
-                    </span>
-                  </a>
-                </li>
+              
 
                 {/* dark mode functionality */}
                 <li className="mode" onClick={handleModeSwitch}>

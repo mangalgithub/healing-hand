@@ -14,12 +14,7 @@ export default function Login() {
     try {
       const token = localStorage.getItem("token");
       
-      // if (!token) {
-      //   // Handle case where token does not exist in localStorage
-      //   setError("Token not found. Please log in again.");
-      //   toast.error("Token not found. Please log in again.");
-      //   return;
-      // }
+      
 
       const response = await axios.post(
         "http://localhost:5000/api/login",
@@ -34,10 +29,14 @@ export default function Login() {
           },
         }
       );
-
+      const doctorId=response.data._id;
+      console.log(doctorId);
       if (response.data.role === "doctor") {
         localStorage.setItem("token", response.data.token);
-        navigate("/doctor");
+        console.log(response.data)
+        // navigate("/doctor");
+        // navigate(`/doctor/${doctorId}`);
+        navigate("/doctorform")
       } else if (response.data.role === "patient") {
         localStorage.setItem("token", response.data.token);
         navigate("/patient");

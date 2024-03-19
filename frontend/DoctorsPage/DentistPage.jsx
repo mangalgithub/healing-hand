@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
   const DoctorCard = ({ doctor }) => {
     return (
       <div className="bg-white shadow-lg rounded-lg p-4">
-      <img src={doctor.photo} alt={doctor.name} className="w-full h-40 object-cover rounded-md mb-4" />
+       <img src="https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" alt="https://t4.ftcdn.net/jpg/02/60/04/09/360_F_260040900_oO6YW1sHTnKxby4GcjCvtypUCWjnQRg5.jpg" className="w-full h-40 object-cover rounded-md mb-4" />
       <h3 className="text-xl font-semibold mb-2">{doctor.name}</h3>
       <div className="flex items-center mb-2">
         <span className="text-gray-600 mr-2">Rating:</span>
@@ -29,15 +29,7 @@ import { useNavigate } from "react-router-dom";
   
   export const DentistPage = () => {
     const navigate=useNavigate();
-    // const { user, loading } = useUserProfile();
-
-  // if (!user) {
-  //    navigate("/")
-  // }
-
-  // if(loading){
-  //   <div>Loading</div>
-  // }
+   
   const [doctors, setDoctors] = useState([]);
   useEffect(() => {
     const getDoctors = async () => {
